@@ -62,6 +62,7 @@
       flex: 1
       padding: 5px 10px 0
       background: #fff
+      box-shadow: 4px -4px 8px rgba(0, 0, 0, 0.05);
       &:before
         content: ""
         position: absolute

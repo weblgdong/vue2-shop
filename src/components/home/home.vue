@@ -205,6 +205,7 @@
       display: flex
       background: #fafafa
       height: 32px
+      border-bottom:1px #d8d8d8 solid
       .item
         position: relative
         flex: 1
@@ -242,7 +243,7 @@
       position: fixed
       left: 0
       right: 0
-      bottom: 55px
+      bottom: 45px
       top: 80px
       .scroll-content
         height: 100%
@@ -273,6 +274,7 @@
             flex: 1
             img
               width: auto
+              min-width: 100%
               height: 180px
             a
               height: 100%
