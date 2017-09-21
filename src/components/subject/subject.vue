@@ -16,14 +16,15 @@
         <p :data-cdeCode="item.cdeCode" :data-index="index">{{item.cdeName}}</p>
       </li>
     </ul>
-    <scroll class="subject-content" :data="subjectList" v-if="subjectList.length">
+    <div class="subject-content" :data="subjectList" v-if="subjectList.length">
       <div>
-        <subject-list v-if="subjectList.length" :list="subjectList"></subject-list>
+        <subject-list v-if="subjectList.length" @select="selectSubject" :list="subjectList"></subject-list>
       </div>
       <div class="loading-container" v-show="!subjectList.length" v-if="!noData">
         <loading></loading>
       </div>
-    </scroll>
+    </div>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -34,6 +35,7 @@
   import Scroll from 'base/scroll/scroll';
   import subjectList from 'components/subjectList/subjectList';
   import Loading from 'base/loading/loading';
+  import {mapMutations} from 'vuex';
 
   export default {
     data() {
@@ -49,6 +51,12 @@
       this._getSubjectList();
     },
     methods: {
+      selectSubject(subject) {
+        this.$router.push({
+          path: `/subject/${subject.id}`
+        });
+        this.setSubject(subject);
+      },
       _getButtonCode(code, index) {
         this.buttonIndex = index;
         this._getSubjectList(code);
@@ -71,7 +79,10 @@
             }
           }
         });
-      }
+      },
+      ...mapMutations({
+        setSubject: 'SET_SUBJECT'
+      })
     },
     components: {
       subjectList,

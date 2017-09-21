@@ -6,6 +6,7 @@ import Subject from 'components/subject/subject';
 import Sort from 'components/sort/sort';
 import shopCart from 'components/shopcart/shopcart';
 import userCenter from 'components/user-center/user-center';
+import subjectDetail from 'components/subject-detail/subject-detail';
 
 Vue.use(Router);
 
@@ -23,7 +24,13 @@ export default new Router({
     {
       path: '/subject',
       name: 'subject',
-      component: Subject
+      component: Subject,
+      children: [
+        {
+          path: ':id',
+          component: subjectDetail
+        }
+      ]
     },
     {
       path: '/sort',

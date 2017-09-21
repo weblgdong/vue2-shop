@@ -9,7 +9,7 @@
       </div>
       <div class="shopcart-group">
         <div class="shopcart-item" v-for="item in shoppingCart">
-          <div class="purchased">
+          <div class="purchased" v-if="item.amtLimit<item.price*item.quantity">
             <i class="purchased-icon"></i><span class="desc">已购满{{item.amtLimit}}元，可参见一元换购活动</span>
             <p class="to-buy"><span>去换购</span><i class="icon"></i></p>
           </div>

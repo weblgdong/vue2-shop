@@ -1,6 +1,6 @@
 <template>
   <div class="subject-list" v-if="list.length">
-    <div class="subject-item" v-for="item in list">
+    <div class="subject-item" v-for="item in list" @click="selectItem(item)">
       <div class="list-head">
         <h2 class="title">{{item.subjectTitle}}</h2>
         <p class="description">{{item.subjectDescription}}</p>
@@ -23,6 +23,11 @@
       list: {
         type: Array,
         default: []
+      }
+    },
+    methods: {
+      selectItem(item) {
+        this.$emit('select', item);
       }
     }
   };

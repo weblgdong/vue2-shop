@@ -17,6 +17,7 @@
   };
 </script>
 
-<style>
-
+<style lang="stylus" rel="stylesheet/stylus">
+  #app
+    height: 100%
 </style>
