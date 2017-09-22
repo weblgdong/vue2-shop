@@ -1,5 +1,7 @@
 const state = {
-  subject: {}
+  subject: {},
+  sort: {},
+  goods: {}
 };
 
 export default state;

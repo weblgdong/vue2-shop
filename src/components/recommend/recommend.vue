@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul class="recommend">
+    <ul class="recommend" v-if="recommend.length">
       <li class="recommend-item" v-for="item in recommend">
         <img :src="item.imgUrl" height="185">
         <div class="good-desc">
@@ -25,6 +25,13 @@
       recommend: {
         type: Array,
         default: []
+      }
+    },
+    created() {
+    },
+    methods: {
+      selectItem(item) {
+        this.$emit('select', item);
       }
     },
     components: {

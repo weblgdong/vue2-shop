@@ -91,6 +91,9 @@
           </div>
           <recommend :recommend="goodsRecommend"></recommend>
         </div>
+        <div class="loading-container" v-show="loadingShow">
+          <loading></loading>
+        </div>
       </scroll>
     </div>
   </div>
@@ -105,6 +108,7 @@
   import sliderX from 'base/sliderX/sliderX';
   import Scroll from 'base/scroll/scroll';
   import Recommend from 'components/recommend/recommend';
+  import Loading from 'base/loading/loading';
 
   export default {
     data() {
@@ -115,7 +119,8 @@
         themes: [],
         goodsNewest: [],
         goodsRecommend: [],
-        buttonIndex: 0
+        buttonIndex: 0,
+        loadingShow: true
       };
     },
     created() {
@@ -124,12 +129,14 @@
     },
     methods: {
       _getIndexContent(typeId) {
+        this.loadingShow = true;
         getIndexContent(typeId).then((res) => {
           if (res.return_code === RETURN_CODE) {
             this.data = res;
             this.themes = res.theme;
             this.goodsNewest = res.goodsNewest;
             this.goodsRecommend = res.goodsRecommend;
+            this.loadingShow = false;
             if (res.carousels.length) {
               this.sliders = res.carousels;
             }
@@ -156,7 +163,8 @@
       Scroll,
       Slider,
       Recommend,
-      sliderX
+      sliderX,
+      Loading
     }
   };
 </script>
@@ -205,7 +213,7 @@
       display: flex
       background: #fafafa
       height: 32px
-      border-bottom:1px #d8d8d8 solid
+      border-bottom: 1px #d8d8d8 solid
       .item
         position: relative
         flex: 1

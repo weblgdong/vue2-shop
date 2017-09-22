@@ -21,27 +21,11 @@
           </div>
         </scroll>
         <scroll class="child-wrapper" :data="allTypes">
-          <div>
-            <div class="cover-wrapper">
-              <img v-lazy="cover" class="cover"/>
-            </div>
-            <div class="type-title">
-          <span class="name">
-             {{typeTitle}}
-          </span>
-            </div>
-            <div class="child-group">
-              <ul>
-                <li class="type-item" v-for="item in allTypes">
-                  <img v-lazy="item.imgUrl" width="62" height="62"/>
-                  <span class="name">{{item.name}}</span>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <sort-list :cover="cover" :allTypes="allTypes" @select="selectSort"></sort-list>
         </scroll>
       </div>
     </div>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -49,6 +33,8 @@
   import Scroll from 'base/scroll/scroll';
   import {getAllParentType, getAllTypeByParent} from 'api/sort';
   import {RETURN_CODE} from 'api/config';
+  import sortList from 'components/sort-list/sort-list';
+  import {mapMutations} from 'vuex';
 
   export default {
     data() {
@@ -70,6 +56,12 @@
       }
     },
     methods: {
+      selectSort(item) {
+        this.$router.push({
+          path: `sort/liveView`
+        });
+        this.setSort(item);
+      },
       _getAllParentType() {
         getAllParentType().then((res) => {
           if (res.return_code === RETURN_CODE) {
@@ -90,10 +82,14 @@
       getElNode(id, index) {
         this.parentId = id;
         this.selIndex = index;
-      }
+      },
+      ...mapMutations({
+        setSort: 'SET_SORT'
+      })
     },
     components: {
-      Scroll
+      Scroll,
+      sortList
     }
   };
 </script>
@@ -146,47 +142,4 @@
         .child-wrapper
           flex: 1
           padding: 11px 12px
-          .cover-wrapper
-            height: 100px
-            overflow: hidden
-            .cover
-              width: 100%
-          .type-title
-            padding: 25px 0 10px
-            text-align: center
-            font-size: 13px
-            color: #464646
-            .name
-              position: relative
-              display: inline-block
-              &:before
-                position: absolute
-                left: -33px
-                top: 6px
-                content: ''
-                font-size: 0
-                width: 25px
-                height: 1px
-                background: #dfdddd
-              &:after
-                position: absolute
-                right: -33px
-                top: 6px
-                content: ''
-                font-size: 0
-                width: 25px
-                height: 1px
-                background: #dfdddd
-          .child-group
-            .type-item
-              display: inline-block
-              width: 33%
-              text-align center
-              .name
-                display block
-                padding-top: 10px
-                height: 33px
-                font-size: 13px
-                color: #464646
-
 </style>

@@ -9,15 +9,14 @@
         <div class="hot" v-if="item.popularitySetting==='10A'"></div>
         <img v-lazy="item.subjectImageUrl" class="cover"/>
       </div>
-      <div class="list-footer">
-        <i class="icon"></i>
-        <span class="visit">{{item.subjectVisitCount}}</span>
-      </div>
+      <visit :visit="item.subjectVisitCount"></visit>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import Visit from 'base/visit/visit';
+
   export default {
     props: {
       list: {
@@ -29,6 +28,9 @@
       selectItem(item) {
         this.$emit('select', item);
       }
+    },
+    components: {
+      Visit
     }
   };
 </script>
@@ -67,18 +69,4 @@
         .cover
           width: 100%
           height: 100%
-      .list-footer
-        text-align: right
-        padding: 8px
-        .icon
-          display: inline-block
-          margin-right: 9px
-          width: 17.5px
-          height: 10px
-          bg-image(visit)
-          background-size: 17.5px 10px
-        .visit
-          display: inline-block
-          font-size: 10px;
-          color: #828282;
 </style>

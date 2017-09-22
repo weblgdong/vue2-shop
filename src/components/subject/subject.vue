@@ -16,14 +16,14 @@
         <p :data-cdeCode="item.cdeCode" :data-index="index">{{item.cdeName}}</p>
       </li>
     </ul>
-    <div class="subject-content" :data="subjectList" v-if="subjectList.length">
+    <scroll class="subject-content" :data="subjectList" v-if="subjectList.length">
       <div>
         <subject-list v-if="subjectList.length" @select="selectSubject" :list="subjectList"></subject-list>
       </div>
-      <div class="loading-container" v-show="!subjectList.length" v-if="!noData">
+      <div class="loading-container" v-show="loadingShow">
         <loading></loading>
       </div>
-    </div>
+    </scroll>
     <router-view></router-view>
   </div>
 </template>
@@ -43,7 +43,7 @@
         appButtons: [],
         subjectList: [],
         buttonIndex: 0,
-        noData: false
+        loadingShow: true
       };
     },
     created() {
@@ -71,12 +71,11 @@
         });
       },
       _getSubjectList(code) {
+        this.loadingShow = true;
         getSubjectList(code).then((res) => {
           if (res.return_code === RETURN_CODE) {
+            this.loadingShow = false;
             this.subjectList = res.subjectList;
-            if (res.subjectList.length === 0) {
-              this.noData = true;
-            }
           }
         });
       },

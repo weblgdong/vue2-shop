@@ -1,22 +1,21 @@
 <template>
   <transition name="slide">
-    <scroll class="subject-detail" :data="recommend">
-      <div>
-        <div class="back">
-          <i class="icon-back" @click="toSubject"></i>
-        </div>
-        <div class="subject-cont" v-if="recommend">
-          <h2 class="title">{{subjectDetail.subjectTitle}}</h2>
-          <p class="title">{{subjectDetail.subjectDescription}}</p>
-          <div class="content">
-            <div v-html="setTimeData(subjectDetail.subjectUpdateTime)"></div>
-            <img v-for="item in subjectDetail.imgList" :src="item.imgUrl"/>
+    <view-slot :title="subjectDetail.subjectTitle">
+      <scroll class="subject-detail" :data="recommend">
+        <div>
+          <div class="subject-cont" v-if="recommend">
+            <p class="desc">{{subjectDetail.subjectDescription}}</p>
+            <div class="content">
+              <img v-for="item in subjectDetail.imgList" :src="item.imgUrl"/>
+            </div>
+            <visit v-if="subjectDetail.subjectCreateTime" :visit="subjectDetail.subjectVisitCount"
+                   :time="subjectDetail.subjectCreateTime.time"></visit>
           </div>
+          <div class="recommend-title">相关推荐</div>
+          <recommend :recommend="recommend"></recommend>
         </div>
-        <div class="recommend-title">相关推荐</div>
-        <recommend :recommend="recommend"></recommend>
-      </div>
-    </scroll>
+      </scroll>
+    </view-slot>
   </transition>
 </template>
 
@@ -26,6 +25,8 @@
   import {RETURN_CODE} from 'api/config';
   import Recommend from 'components/recommend/recommend';
   import Scroll from 'base/scroll/scroll';
+  import Visit from 'base/visit/visit';
+  import viewSlot from 'base/view-slot/view-slot';
 
   export default {
     data() {
@@ -43,9 +44,6 @@
       this._getDetail();
     },
     methods: {
-      setTimeData(time) {
-        return time;
-      },
       toSubject() {
         this.$router.push('/subject');
       },
@@ -59,12 +57,15 @@
             this.recommend = res.goodsRecommend;
             this.subjectDetail = res.subjectDetail[0];
           }
+          console.log(1, this.subjectDetail);
         });
       }
     },
     components: {
       Recommend,
-      Scroll
+      Scroll,
+      Visit,
+      viewSlot
     }
   };
 </script>
@@ -73,27 +74,13 @@
   @import "~common/stylus/mixin"
   .subject-detail
     position: absolute
-    z-index: 100
     left: 0
-    top: 0
-    right: 0
+    top: 40px
     bottom: 0
+    right: 0
     background: #f4f4f4
-    .back
-      position: absolute
-      left: 5px
-      top: 5px
-      width: 20px
-      height: 30px
-      .icon-back
-        display: inline-block
-        width: 20px
-        height: 30px
-        background: no-repeat center
-        bg-image(l-arrow)
-        background-size: 8.5px 18.5px
     .subject-cont
-      padding: 10px 4px 10px
+      padding: 5px 4px 10px
       background: #fff
       .title
         text-align: center
@@ -104,9 +91,13 @@
         font-size: 13px
         line-height: 30px
         color: #414141
+        text-align: center;
     .content
       img
         width: 100%
+
+  .subject-cont
+    text-align: right
 
   .recommend-title
     margin: 10px 0
