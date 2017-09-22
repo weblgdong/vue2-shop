@@ -46,7 +46,9 @@
     },
     methods: {
       selectGoods(item) {
-        console.log(item.id);
+        if (!item.id) {
+          return;
+        }
         this.$router.push({
           path: `goods`
         });
