@@ -21,7 +21,7 @@
           </div>
         </scroll>
         <scroll class="child-wrapper" :data="allTypes">
-          <sort-list :cover="cover" :allTypes="allTypes" @select="selectSort"></sort-list>
+          <sort-list :cover="cover" :typeTitle="typeTitle" :allTypes="allTypes" @select="selectSort"></sort-list>
         </scroll>
       </div>
     </div>

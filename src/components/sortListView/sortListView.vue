@@ -14,7 +14,7 @@
           <p class="screen-item">新品</p>
           <p class="screen-item">价格</p>
         </div>
-        <recommend v-if="goods.length" :recommend="goods"></recommend>
+        <recommend v-if="goods.length" :recommend="goods" @goodsSelect="selectGoods"></recommend>
       </div>
     </view-slot>
   </transition>
@@ -52,7 +52,7 @@
         this.$router.push({
           path: `goods`
         });
-        // this.setGoods(item);
+        this.setGoods(item);
       },
       _getViewName() {
         this.title = this.sort.name;

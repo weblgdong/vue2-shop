@@ -22,11 +22,9 @@
 <script type="text/ecmascript-6">
   export default {
     props: {
-      typeTitle: {
-        typeTitle: {
-          type: String,
-          default: ''
-        }
+     typeTitle: {
+        type: String,
+        default: ''
       },
       allTypes: {
         type: Array,

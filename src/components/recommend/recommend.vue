@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul class="recommend" v-if="recommend.length">
-      <li class="recommend-item" v-for="item in recommend">
+      <li class="recommend-item" v-for="item in recommend" @click="selectItem(item)">
         <img :src="item.imgUrl" height="185">
         <div class="good-desc">
           <div class="title">
@@ -31,7 +31,7 @@
     },
     methods: {
       selectItem(item) {
-        this.$emit('select', item);
+        this.$emit('goodsSelect', item);
       }
     },
     components: {

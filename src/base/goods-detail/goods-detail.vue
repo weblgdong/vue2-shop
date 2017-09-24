@@ -10,9 +10,15 @@
 
 <script type="text/ecmascript-6">
   import viewSlot from 'base/view-slot/view-slot';
-
+  import { mapGetters } from 'vuex';
   export default {
     created() {
+      console.log('goods', this.goods);
+    },
+    computed: {
+      ...mapGetters([
+        'goods'
+      ])
     },
     methods: {},
     components: {
