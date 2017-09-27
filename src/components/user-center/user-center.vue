@@ -5,7 +5,7 @@
         <div class="avatar-wrapper">
           <div class="avatar">
             <img v-if="!data.imgUrl" src="./avatar.png" width="48.5" height="53.5"/>
-            <img v-if="data.imgUrl" :src="data.imgUrl" width="100%" height="100%"/>
+            <img v-if="data.imgUrl" v-lazy="data.imgUrl" width="100%" height="100%"/>
           </div>
         </div>
         <div class="register">
@@ -30,7 +30,7 @@
           </div>
         </div>
         <ul class="user-list">
-          <li class="list-item border-1px">
+          <li class="list-item border-1px" @click="toOybuy()">
             <i class="icon oybuy"></i>
             <span class="name">一元购</span>
             <span class="arrow"></span>
@@ -97,6 +97,7 @@
         </ul>
       </div>
     </Scroll>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -115,6 +116,9 @@
       this._getMemberImgBy16Id();
     },
     methods: {
+      toOybuy() {
+        this.$router.push('user-center/oybuy/seckill');
+      },
       _getMemberImgBy16Id() {
         getMemberImgBy16Id().then((res) => {
           if (res.return_code === RETURN_CODE) {
@@ -159,7 +163,7 @@
             overflow: hidden
         .register
           flex: 1
-          .types,.nickName
+          .types, .nickName
             display: flex
             height: 100%
             align-items center

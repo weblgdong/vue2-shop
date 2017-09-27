@@ -8,6 +8,9 @@ import userCenter from 'components/user-center/user-center';
 import subjectDetail from 'components/subject-detail/subject-detail';
 import sortListView from 'components/sortListView/sortListView';
 import goodsDetail from 'base/goods-detail/goods-detail';
+import OyBuy from 'components/oybuy/oybuy';
+import Seckill from 'components/oybuy/seckill';
+import Purchased from 'components/oybuy/purchased';
 
 Vue.use(Router);
 
@@ -18,8 +21,16 @@ export default new Router({
       redirect: '/home'
     },
     {
+      path: '/goods',
+      component: goodsDetail
+    },
+    {
       path: '/home',
       component: Home
+    },
+    {
+      path: '/subject/:id',
+      component: subjectDetail
     },
     {
       path: '/subject',
@@ -51,7 +62,21 @@ export default new Router({
     },
     {
       path: '/user-center',
-      component: userCenter
+      component: userCenter,
+      children: [{
+        path: 'oybuy',
+        component: OyBuy,
+        children: [
+          {
+            path: 'seckill',
+            component: Seckill
+          },
+          {
+            path: 'purchased',
+            component: Purchased
+          }
+        ]
+      }]
     }
   ]
 });

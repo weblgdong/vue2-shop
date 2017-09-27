@@ -2,7 +2,7 @@
   <div>
     <ul class="recommend" v-if="recommend.length">
       <li class="recommend-item" v-for="item in recommend" @click="selectItem(item)">
-        <img :src="item.imgUrl" height="185">
+        <img v-lazy="changeImg(item.imgUrl)" height="185">
         <div class="good-desc">
           <div class="title">
             <sale-type :type="item.saleType"></sale-type>
@@ -19,6 +19,7 @@
 
 <script type="text/ecmascript-6">
   import saleType from 'base/sale-type/sale-type';
+  import {mapMutations} from 'vuex';
 
   export default {
     props: {
@@ -30,9 +31,19 @@
     created() {
     },
     methods: {
+      changeImg(url) {
+        url = url.replace('123.127.76.30:9951', '192.168.1.200');
+        return url;
+      },
       selectItem(item) {
-        this.$emit('goodsSelect', item);
-      }
+        this.$router.push({
+          path: `/goods`
+        });
+        this.setGoods(item);
+      },
+      ...mapMutations({
+        setGoods: 'SET_GOODS'
+      })
     },
     components: {
       saleType
@@ -54,6 +65,7 @@
       border-right: 3px solid #f0f0f0;
       overflow: hidden
       border-radius: 3px
+      background: #fff
       img
         display: block
         vertical-align: top

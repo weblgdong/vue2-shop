@@ -1,6 +1,6 @@
 <template>
   <div class="view-slot">
-    <div class="header-title">
+    <div class="header-title" v-show="display">
       <div class="back" @click="toBack">
         <i class="icon-back"></i>
       </div>
@@ -15,14 +15,24 @@
 <script type="text/ecmascript-6">
   export default {
     props: {
+      display: {
+        type: Boolean,
+        default: true
+      },
       title: {
         type: String,
         default: ''
+      },
+      toBackEv: {
+        type: Function,
+        default: function () {
+          window.history.back();
+        }
       }
     },
     methods: {
       toBack() {
-        window.history.back();
+        this.toBackEv();
       }
     }
   };
@@ -37,6 +47,7 @@
     top: 0
     right: 0
     bottom: 0
+    background: #fff
     .header-title
       position: relative
       z-index: 9
@@ -61,4 +72,8 @@
         line-height: 40px
         color: #000
         text-align: center
+        overflow: hidden
+        height: 40px
+        text-overflow: ellipsis
+        white-space: nowrap
 </style>

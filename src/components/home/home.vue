@@ -27,7 +27,7 @@
             <slider>
               <div v-for="item in sliders">
                 <a href="javascript:;">
-                  <img :src="item.url"/>
+                  <img :src="item.url" height="203"/>
                 </a>
               </div>
             </slider>
@@ -56,9 +56,9 @@
               <slider-x :data="goodsNewest">
                 <div>
                   <ul class="goods" style="width:505px">
-                    <li class="goods-item" v-for="item in goodsNewest">
+                    <li class="goods-item" v-for="item in goodsNewest" @click="clickGoods(item)">
                       <a href="javascript:;">
-                        <img :src="item.imgUrl" width="118" height="118"/>
+                        <img v-lazy="item.imgUrl" width="118" height="118"/>
                         <span class="name">{{item.title}}</span>
                         <span class="price">¥{{item.price}}</span>
                       </a>
@@ -75,7 +75,7 @@
             <h2 class="title">
               专题推荐
             </h2>
-            <div class="subject-wrapper">
+            <div class="subject-wrapper" @click="clickSubject(data.subject)">
               <img :src="data.subject.subjectImageUrl" height="117"/>
               <div class="subject-bottom">
                 <div class="sub-l">
@@ -109,6 +109,7 @@
   import Scroll from 'base/scroll/scroll';
   import Recommend from 'components/recommend/recommend';
   import Loading from 'base/loading/loading';
+  import {mapMutations} from 'vuex';
 
   export default {
     data() {
@@ -128,6 +129,18 @@
       this._getIndexContent();
     },
     methods: {
+      clickGoods(goods) {
+        this.$router.push({
+          path: `/goods`
+        });
+        this.setGoods(goods);
+      },
+      clickSubject(subject) {
+        this.$router.push({
+          path: `subject/${subject.id}`
+        });
+        this.setSubject(subject);
+      },
       _getIndexContent(typeId) {
         this.loadingShow = true;
         getIndexContent(typeId).then((res) => {
@@ -157,7 +170,11 @@
         this.buttonIndex = getData(e.target, 'index');
         this._getIndexContent(typeCode);
         e.cancelBubble = true;
-      }
+      },
+      ...mapMutations({
+        setSubject: 'SET_SUBJECT',
+        setGoods: 'SET_GOODS'
+      })
     },
     components: {
       Scroll,

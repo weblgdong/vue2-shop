@@ -16,9 +16,9 @@
         <p :data-cdeCode="item.cdeCode" :data-index="index">{{item.cdeName}}</p>
       </li>
     </ul>
-    <scroll class="subject-content" :data="subjectList" v-if="subjectList.length">
+    <scroll class="subject-content" :data="subjectList" >
       <div>
-        <subject-list v-if="subjectList.length" @select="selectSubject" :list="subjectList"></subject-list>
+        <subject-list  @select="selectSubject" :list="subjectList"></subject-list>
       </div>
       <div class="loading-container" v-show="loadingShow">
         <loading></loading>

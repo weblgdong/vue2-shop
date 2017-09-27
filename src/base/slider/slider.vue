@@ -122,7 +122,6 @@
       white-space: nowrap
       .slider-item
         float: left
-        height:203px
         box-sizing: border-box
         overflow: hidden
         text-align: center
@@ -134,7 +133,6 @@
         img
           display: block
           width: 100%
-          height:203px
     .dots
       position: absolute
       right: 0

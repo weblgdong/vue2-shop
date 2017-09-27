@@ -1,6 +1,9 @@
 <template>
-  <div class="subject-list" v-if="list.length">
-    <div class="subject-item" v-for="item in list" @click="selectItem(item)">
+  <div class="subject-list">
+    <div v-if="list.length===0" class="no-data">
+      <p>暂无数据</p>
+    </div>
+    <div class="subject-item" v-if="list.length" v-for="item in list" @click="selectItem(item)">
       <div class="list-head">
         <h2 class="title">{{item.subjectTitle}}</h2>
         <p class="description">{{item.subjectDescription}}</p>
@@ -40,6 +43,11 @@
 
   .subject-list
     padding: 6px 4px
+    .no-data
+      padding-top: 10%
+      text-align: center
+      font-size: 14px
+      color: #999
     .subject-item
       margin-bottom: 6px
       padding: 11px 5px 0
