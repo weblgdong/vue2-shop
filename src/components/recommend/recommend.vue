@@ -2,7 +2,7 @@
   <div>
     <ul class="recommend" v-if="recommend.length">
       <li class="recommend-item" v-for="item in recommend" @click="selectItem(item)">
-        <img v-lazy="changeImg(item.imgUrl)" height="185">
+        <img v-lazy="item.imgUrl" height="185">
         <div class="good-desc">
           <div class="title">
             <sale-type :type="item.saleType"></sale-type>
@@ -31,10 +31,6 @@
     created() {
     },
     methods: {
-      changeImg(url) {
-        url = url.replace('123.127.76.30:9951', '192.168.1.200');
-        return url;
-      },
       selectItem(item) {
         this.$router.push({
           path: `/goods`

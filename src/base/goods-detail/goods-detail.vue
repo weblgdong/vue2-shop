@@ -1,12 +1,11 @@
 <template>
   <transition name="slide">
     <view-slot :display="display" :title="title" ref="viewSlot">
-      <scroll class="goods-detail" :data="data.goods"
+      <scroll class="goods-detail" :data="recommend"
               @scroll="scroll"
               :listen-scroll="listenScroll"
               :probeType="probeType"
-              ref="goodsDetail"
-      >
+              ref="goodsDetail">
         <div>
           <div class="toBack" @click="toBack"></div>
           <div class="slider-wrapper" v-if="sliders.length">
@@ -42,8 +41,8 @@
             </div>
           </div>
           <div class="info" v-if="goodsList">
-            <div v-for="item in goodsList.imgList">
-              <img v-if="item.type === '102'" v-lazy="item.imgUrl"/>
+            <div v-for="item in goodsList.imgList" v-if="item.type === '102'">
+              <img v-lazy="item.imgUrl" @load="loadImage()"/>
             </div>
           </div>
           <div class="recommend-tile" v-if="recommend.length">
@@ -102,6 +101,9 @@
       ])
     },
     methods: {
+      loadImage() {
+        console.log(1);
+      },
       toBack() {
         window.history.back();
       },
@@ -130,13 +132,14 @@
             });
             this.type = this.goodsList.saleType;
             this.$refs.goodsDetail.scrollElement(document.querySelector('.goods-detail'), 0, 0);
+            this.$refs.goodsDetail.refresh();
             this.display = false;
           }
         });
       }
     },
     watch: {
-      goods(newVal) {
+      goods() {
         this._getGoodsDetail();
       }
     },
@@ -280,6 +283,7 @@
       border-top: 6px #f0f0f0 solid
       padding: 0 6px
       img
+        display: block
         width 100%
     .recommend-tile
       font-size: 13px

@@ -6,7 +6,9 @@
         <router-link tag="div" to="/user-center/oybuy/purchased" class="tab-item"><p>一元换购</p></router-link>
       </div>
       <div class="oybuy-content">
-          <router-view></router-view>
+          <keep-alive>
+            <router-view></router-view>
+          </keep-alive>
       </div>
     </view-slot>
   </transition>
@@ -16,8 +18,6 @@
   import viewSlot from 'base/view-slot/view-slot';
 
   export default {
-    created() {
-    },
     methods: {
       toBackEv() {
         this.$router.push('/user-center');

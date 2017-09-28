@@ -7,7 +7,7 @@
         <p class="status">{{seckillStatus[item.seckillStatus]}}</p>
       </li>
     </ul>
-    <goods-list></goods-list>
+    <goods-list :list="list"></goods-list>
   </div>
 </template>
 
@@ -23,7 +23,8 @@
         seckillTime: [],
         selIndex: 0,
         firstVisit: true,
-        initTime: []
+        initTime: [],
+        list: []
       };
     },
     created() {
@@ -43,7 +44,9 @@
       },
       _getSeckillGoods(time) {
         getSeckillGoods(time).then((res) => {
-          console.log(res);
+          if (res.return_code === RETURN_CODE) {
+            this.list = res.seckillGoods;
+          }
         });
       },
       _getSeckillTime() {

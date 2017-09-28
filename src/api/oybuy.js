@@ -21,3 +21,11 @@ export function getSeckillGoods(time) {
     return Promise.resolve(res.data);
   });
 }
+
+export function getAllGood10E() {
+  const url = CTX + '/getAllGood10E.app?typeId=';
+
+  return axios.get(url).then((res) => {
+    return Promise.resolve(res.data);
+  });
+}

@@ -1,8 +1,7 @@
 <template>
-
-  <scroll class="shopcart-wrapper">
+  <scroll class="shopcart-wrapper" :data="data.goodsRecommend">
     <div>
-      <div class="tip" >
+      <div class="tip">
         <p class="txt">满10元包邮</p>
         <p class="txt">2天快速发货</p>
         <p class="txt">30天无忧退货</p>
@@ -77,6 +76,7 @@
   export default {
     data() {
       return {
+        data: {},
         goodsRecommend: [],
         shoppingCart: []
       };
@@ -88,6 +88,7 @@
       _getShoppingCartList() {
         getShoppingCartList().then((res) => {
           if (res.return_code === RETURN_CODE) {
+            this.data = res;
             this.shoppingCart = res.shoppingCart;
             this.goodsRecommend = res.goodsRecommend;
           }
@@ -123,7 +124,7 @@
         font-size: 11px
         text-align: center
     .shopcart-group
-      padding-bottom:10px
+      padding-bottom: 10px
       .shopcart-item
         background: #fff
         margin-bottom: 6px

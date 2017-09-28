@@ -66,7 +66,6 @@
                 this.goods.push(item);
               }
             });
-            console.log(res);
           }
         });
       },
