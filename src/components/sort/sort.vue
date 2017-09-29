@@ -1,7 +1,7 @@
 <template>
   <div class="sort-wrapper">
     <div class="sort-head">
-      <div class="sort-search">
+      <div class="sort-search" @click="toSearch">
         <i class="icon"></i>
         <span>搜索商品</span>
       </div>
@@ -26,6 +26,7 @@
       </div>
     </div>
     <router-view></router-view>
+    <search :disSearch="showSearch" @hiddenSearch="hiddenSearch"></search>
   </div>
 </template>
 
@@ -35,6 +36,7 @@
   import {RETURN_CODE} from 'api/config';
   import sortList from 'components/sort-list/sort-list';
   import {mapMutations} from 'vuex';
+  import Search from 'base/search/search';
 
   export default {
     data() {
@@ -44,7 +46,8 @@
         allTypes: [],
         typeTitle: '',
         parentId: '',
-        selIndex: 0
+        selIndex: 0,
+        showSearch: false
       };
     },
     created() {
@@ -56,6 +59,12 @@
       }
     },
     methods: {
+      toSearch() {
+        this.showSearch = true;
+      },
+      hiddenSearch() {
+        this.showSearch = false;
+      },
       selectSort(item) {
         this.$router.push({
           path: `sort/liveView`
@@ -89,7 +98,8 @@
     },
     components: {
       Scroll,
-      sortList
+      sortList,
+      Search
     }
   };
 </script>

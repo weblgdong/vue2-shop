@@ -78,8 +78,9 @@
       selSearchItem(item) {
         if (this.searchType === '10A') {
           this.$router.push({
-            path: `sort/liveView`
+            path: `/sort/liveView`
           });
+          this.$emit('hiddenSearch', '111');
           this.setSort(item);
         } else {
           this.$router.push({
