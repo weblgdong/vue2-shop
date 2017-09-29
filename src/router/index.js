@@ -11,6 +11,7 @@ import goodsDetail from 'base/goods-detail/goods-detail';
 import OyBuy from 'components/oybuy/oybuy';
 import Seckill from 'components/oybuy/seckill';
 import Purchased from 'components/oybuy/purchased';
+import SearchSubject from 'components/search-subject/search-subject';
 
 Vue.use(Router);
 
@@ -29,10 +30,6 @@ export default new Router({
       component: Home
     },
     {
-      path: '/subject/:id',
-      component: subjectDetail
-    },
-    {
       path: '/subject',
       component: Subject,
       children: [
@@ -41,6 +38,14 @@ export default new Router({
           component: subjectDetail
         }
       ]
+    },
+    {
+      path: '/search-subject',
+      component: SearchSubject
+    },
+    {
+      path: '/subject/:id',
+      component: subjectDetail
     },
     {
       path: '/sort',

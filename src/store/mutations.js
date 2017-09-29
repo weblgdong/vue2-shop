@@ -9,6 +9,9 @@ const mutataions = {
   },
   [types.SET_GOODS](state, goods) {
     state.goods = goods;
+  },
+  [types.SET_SSUBJECT](state, subjectList) {
+    state.subjectList = subjectList;
   }
 };
 export default mutataions;

@@ -1,6 +1,6 @@
 <template>
   <div class="goods-list" v-if="list.length">
-    <div class="goods-item" v-for="item in list" @click="selGoods(item)">
+    <div class="goods-item border-1px" v-for="item in list" @click="selGoods(item)">
       <div class="goods-photo">
         <img v-lazy="item.imgUrl" width="140" height="140"/>
       </div>

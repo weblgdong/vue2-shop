@@ -1,7 +1,8 @@
 const state = {
   subject: {},
   sort: {},
-  goods: {}
+  goods: {},
+  subjectList: {}
 };
 
 export default state;

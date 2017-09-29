@@ -40,15 +40,15 @@
               <span class="icon"></span>
             </div>
           </div>
-          <div class="info" v-if="goodsList">
-            <div v-for="item in goodsList.imgList" v-if="item.type === '102'">
-              <img v-lazy="item.imgUrl" @load="loadImage()"/>
+          <div class="info" v-if="infoList.length">
+            <div v-for="(item,index) in infoList">
+              <img v-lazy="item.imgUrl" @load="loadImage(index)"/>
             </div>
           </div>
           <div class="recommend-tile" v-if="recommend.length">
             相关推荐
           </div>
-          <recommend v-if="recommend" :recommend="recommend" style="padding-bottom:50px"></recommend>
+          <recommend v-if="recommend" :recommend="recommend" style="padding-bottom:50px;background:#ededed"></recommend>
         </div>
         <shop-cart :type="type" :cartCount="cartCount"></shop-cart>
       </scroll>
@@ -83,7 +83,8 @@
         recommend: [],
         display: false,
         type: '',
-        cartCount: 0
+        cartCount: 0,
+        infoList: []
       };
     },
     created() {
@@ -101,8 +102,10 @@
       ])
     },
     methods: {
-      loadImage() {
-        console.log(1);
+      loadImage(index) {
+        if (index === this.infoList.length - 1) {
+          this.$refs.goodsDetail.refresh();
+        }
       },
       toBack() {
         window.history.back();
@@ -129,6 +132,9 @@
             this.discount = res.disCountList[0];
             this.sliders = res.goods[0].imgList.filter((value) => {
               return value.type === '101';
+            });
+            this.infoList = res.goods[0].imgList.filter((value) => {
+              return value.type === '102';
             });
             this.type = this.goodsList.saleType;
             this.$refs.goodsDetail.scrollElement(document.querySelector('.goods-detail'), 0, 0);

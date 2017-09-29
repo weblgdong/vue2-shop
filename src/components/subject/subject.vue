@@ -1,7 +1,7 @@
 <template>
   <div class="subject-wrapper">
     <div class="subject-head">
-      <div class="subject-search">
+      <div class="subject-search" @click="toSearch">
         <i class="icon"></i>
         <span>搜索专题</span>
       </div>
@@ -16,15 +16,16 @@
         <p :data-cdeCode="item.cdeCode" :data-index="index">{{item.cdeName}}</p>
       </li>
     </ul>
-    <scroll class="subject-content" :data="subjectList" >
+    <scroll class="subject-content" :data="subjectList">
       <div>
-        <subject-list  @select="selectSubject" :list="subjectList"></subject-list>
+        <subject-list @select="selectSubject" :list="subjectList"></subject-list>
       </div>
       <div class="loading-container" v-show="loadingShow">
         <loading></loading>
       </div>
     </scroll>
     <router-view></router-view>
+    <search :searchType="searchType" :disSearch="showSearch" @hiddenSearch="hiddenSearch"></search>
   </div>
 </template>
 
@@ -36,6 +37,7 @@
   import subjectList from 'components/subjectList/subjectList';
   import Loading from 'base/loading/loading';
   import {mapMutations} from 'vuex';
+  import Search from 'base/search/search';
 
   export default {
     data() {
@@ -43,7 +45,9 @@
         appButtons: [],
         subjectList: [],
         buttonIndex: 0,
-        loadingShow: true
+        loadingShow: true,
+        showSearch: false,
+        searchType: '10B'
       };
     },
     created() {
@@ -51,6 +55,12 @@
       this._getSubjectList();
     },
     methods: {
+      toSearch() {
+        this.showSearch = true;
+      },
+      hiddenSearch() {
+        this.showSearch = false;
+      },
       selectSubject(subject) {
         this.$router.push({
           path: `/subject/${subject.id}`
@@ -86,7 +96,8 @@
     components: {
       subjectList,
       Scroll,
-      Loading
+      Loading,
+      Search
     }
   };
 </script>

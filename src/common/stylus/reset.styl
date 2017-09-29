@@ -60,7 +60,7 @@ body, html
   height: 100%
 
 .loading-container
-  position: absolute
+  position: fixed
   width: 100%
   top: 50%
   transform: translateY(-50%)
@@ -70,3 +70,10 @@ body, html
 
 .slide-enter, .slide-leave-to
   transform: translate3d(100%, 0, 0)
+
+input[type="button"], input[type="submit"], input[type="reset"]
+  -webkit-appearance: none;
+
+textarea
+  -webkit-appearance: none;
+input:focus {outline: none}

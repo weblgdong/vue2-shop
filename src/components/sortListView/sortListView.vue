@@ -2,7 +2,7 @@
   <transition name="slide">
     <view-slot :title="title">
       <div class="sort-list-view">
-        <div class="recommend-goods" @click="selectGoods(recommendTop)">
+        <div class="recommend-goods" v-if="!isSearch" @click="selectGoods(recommendTop)">
           <img v-lazy="recommendTop.imgUrl" width="100%" height="175"/>
           <div class="text">
             <p class="title">{{recommendTop.title}}</p>
@@ -10,9 +10,14 @@
           </div>
         </div>
         <div class="screen">
-          <p class="screen-item">全部</p>
-          <p class="screen-item">新品</p>
-          <p class="screen-item">价格</p>
+          <p class="screen-item"><span>全部</span></p>
+          <p class="screen-item"><span>新品</span></p>
+          <p class="screen-item" @click="sortPrice">
+            <span>价格</span>
+            <i class="icon"
+               :class="{'descending':descending}">
+            </i>
+          </p>
         </div>
         <recommend v-if="goods.length" :recommend="goods"></recommend>
       </div>
@@ -32,7 +37,9 @@
       return {
         recommendTop: {},
         title: '',
-        goods: []
+        goods: [],
+        descending: false,
+        isSearch: false
       };
     },
     computed: {
@@ -45,19 +52,34 @@
       this._getSortData();
     },
     methods: {
+      sortPrice() {
+        if (this.descending) {
+          this.descending = false;
+        } else {
+          this.descending = true;
+        }
+      },
       selectGoods(item) {
-        console.log(item);
+        this.$router.push({
+          path: `/goods`
+        });
+        this.setGoods(item);
       },
       _getViewName() {
-        this.title = this.sort.name;
+        this.title = this.sort.name || this.sort.title || this.sort.cdeName || this.sort.searchKey;
       },
       _getSortData() {
         // 处理返回
-        if (!this.sort.id) {
+        if (!this.sort.id && !this.sort.cdeCode) {
           this.$router.push('/sort');
           return;
         }
-        getAllGoodsByType(this.sort.id, '10A', '10A').then((res) => {
+        if (!this.sort.id) {
+          this.isSearch = true;
+        }
+        var key = this.isSearch ? (this.sort.name || this.sort.title || this.sort.cdeName || this.sort.searchKey) : '';
+        let id = this.isSearch ? '' : this.sort.id;
+        getAllGoodsByType(id, '10A', '10A', key).then((res) => {
           if (res.return_code === RETURN_CODE) {
             res.goods.forEach((item) => {
               if (item.recommendTop === '10A') {
@@ -81,13 +103,15 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+  @import "~common/stylus/mixin.styl";
+
   .sort-list-view
     position: absolute
     left: 0
     top: 40px
     right: 0
     bottom: 0
-    background: #f4f4f4
+    background: #ededed
     .recommend-goods
       background: #fff
       .text
@@ -112,6 +136,19 @@
         line-height: 35px
         text-align: center
         color: #000
+        span
+          display: inline-block
+          line-height: 35px
+          vertical-align: top
+        .icon
+          display: inline-block
+          width: 35.5px
+          height: 35px
+          background: no-repeat right center
+          background-size: 90.5px 35px
+          bg-image(ascending)
+          &.descending
+            bg-image(descending)
 
   .slide-enter-active, .slide-leave-active
     transition: all 0.3s

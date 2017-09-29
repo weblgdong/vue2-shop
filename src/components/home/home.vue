@@ -4,7 +4,7 @@
       <div class="scan-code">
         <i class="icon"></i>
       </div>
-      <div class="home-search">
+      <div class="home-search" @click="toSearch">
         <i class="icon"></i>
         <span>搜索商品</span>
       </div>
@@ -24,10 +24,10 @@
       <scroll ref="scroll" :data="goodsRecommend" class="scroll-content">
         <div>
           <div v-if="sliders.length" class="slider-wrapper">
-            <slider>
+            <slider ref="scroll">
               <div v-for="item in sliders">
                 <a href="javascript:;">
-                  <img :src="item.url" height="203"/>
+                  <img :src="item.url" @load="loadImage()" height="203"/>
                 </a>
               </div>
             </slider>
@@ -96,6 +96,7 @@
         </div>
       </scroll>
     </div>
+    <search :disSearch="showSearch" @hiddenSearch="hiddenSearch" ></search>
   </div>
 </template>
 
@@ -110,6 +111,7 @@
   import Recommend from 'components/recommend/recommend';
   import Loading from 'base/loading/loading';
   import {mapMutations} from 'vuex';
+  import Search from 'base/search/search';
 
   export default {
     data() {
@@ -121,7 +123,8 @@
         goodsNewest: [],
         goodsRecommend: [],
         buttonIndex: 0,
-        loadingShow: true
+        loadingShow: true,
+        showSearch: false
       };
     },
     created() {
@@ -129,6 +132,18 @@
       this._getIndexContent();
     },
     methods: {
+      toSearch() {
+        this.showSearch = true;
+      },
+      hiddenSearch() {
+        this.showSearch = false;
+      },
+      loadImage() {
+        if (!this.checkLoaded) {
+          this.$refs.scroll.refresh();
+          this.checkLoaded = true;
+        }
+      },
       clickGoods(goods) {
         this.$router.push({
           path: `/goods`
@@ -181,7 +196,8 @@
       Slider,
       Recommend,
       sliderX,
-      Loading
+      Loading,
+      Search
     }
   };
 </script>
