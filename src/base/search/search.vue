@@ -86,6 +86,7 @@
           this.$router.push({
             path: 'search-subject'
           });
+          console.log(item);
           this.setSubjectList(item);
         }
       },

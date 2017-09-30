@@ -123,6 +123,10 @@
           return;
         }
         this.title = this.goods.title;
+        this.cartCount = [];
+        this.goodsList = [];
+        this.recommend = [];
+        this.discount = [];
         getGoodsDetail(this.goods.id).then((res) => {
           if (res.return_code === RETURN_CODE) {
             this.data = res;

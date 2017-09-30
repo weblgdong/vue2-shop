@@ -33,7 +33,6 @@
       if (!this.subjectList.id) {
         this.$router.push('/subject');
       }
-      this.title = this.subjectList.searchKey;
       this._getGoodOrSubjectByKey();
     },
     methods: {
@@ -44,7 +43,9 @@
         this.setSubject(subject);
       },
       _getGoodOrSubjectByKey() {
-        getGoodOrSubjectByKey(this.subjectList.searchKey, '10B').then((res) => {
+        this.title = this.subjectList.searchKey || this.subjectList.subjectTitle;
+        console.log(this.title);
+        getGoodOrSubjectByKey(this.title, '10B').then((res) => {
           if (res.return_code === RETURN_CODE) {
             this.resultList = res.resultList;
           }
