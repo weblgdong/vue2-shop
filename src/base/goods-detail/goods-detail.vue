@@ -50,7 +50,7 @@
           </div>
           <recommend v-if="recommend" :recommend="recommend" style="padding-bottom:50px;background:#ededed"></recommend>
         </div>
-        <shop-cart :type="type" :cartCount="cartCount"></shop-cart>
+        <shop-cart :type="type" v-if="type" :cartCount="cartCount"></shop-cart>
       </scroll>
     </view-slot>
   </transition>
@@ -123,7 +123,6 @@
           return;
         }
         this.title = this.goods.title;
-        this.cartCount = [];
         this.goodsList = [];
         this.recommend = [];
         this.discount = [];

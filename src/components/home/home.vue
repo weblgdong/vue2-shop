@@ -8,7 +8,7 @@
         <i class="icon"></i>
         <span>搜索商品</span>
       </div>
-      <div class="message"></div>
+      <div class="message" :class='{"has":messageNum>0}' @click="toMessage()"></div>
     </div>
     <ul class="button-group" v-if="appButtons.length">
       <li v-for="(item,index) in appButtons" class="item"
@@ -24,7 +24,7 @@
       <scroll ref="scroll" :data="goodsRecommend" class="scroll-content">
         <div>
           <div v-if="sliders.length" class="slider-wrapper">
-            <slider ref="scroll">
+            <slider ref="slider">
               <div v-for="item in sliders">
                 <a href="javascript:;">
                   <img :src="item.url" @load="loadImage()" height="203"/>
@@ -96,7 +96,7 @@
         </div>
       </scroll>
     </div>
-    <search :disSearch="showSearch" @hiddenSearch="hiddenSearch" ></search>
+    <search :disSearch="showSearch" @hiddenSearch="hiddenSearch"></search>
   </div>
 </template>
 
@@ -110,7 +110,7 @@
   import Scroll from 'base/scroll/scroll';
   import Recommend from 'components/recommend/recommend';
   import Loading from 'base/loading/loading';
-  import {mapMutations} from 'vuex';
+  import {mapMutations, mapGetters} from 'vuex';
   import Search from 'base/search/search';
 
   export default {
@@ -124,16 +124,37 @@
         goodsRecommend: [],
         buttonIndex: 0,
         loadingShow: true,
-        showSearch: false
+        showSearch: false,
+        messageNum: 0
       };
+    },
+    computed: {
+      ...mapGetters([
+        'messageNumber'
+      ])
     },
     created() {
       this._getAppBut();
       this._getIndexContent();
     },
+    activated() {
+      setTimeout(() => {
+        this.$refs.slider && this.$refs.slider.refresh();
+      }, 20);
+    },
+    watch: {
+      messageNumber(newVal) {
+        for (let item in newVal) {
+          this.messageNum += newVal[item];
+        }
+      }
+    },
     methods: {
       toSearch() {
         this.showSearch = true;
+      },
+      toMessage() {
+        this.$router.push('/message');
       },
       hiddenSearch() {
         this.showSearch = false;

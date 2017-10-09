@@ -69,7 +69,7 @@
             <span class="name">在线客服</span>
             <span class="arrow"></span>
           </li>
-          <li class="list-item border-1px">
+          <li class="list-item border-1px" @click="toMessage()">
             <i class="icon news"></i>
             <span class="name">通知消息</span>
             <span class="arrow"></span>
@@ -116,6 +116,9 @@
       this._getMemberImgBy16Id();
     },
     methods: {
+      toMessage() {
+        this.$router.push('/message');
+      },
       toOybuy() {
         this.$router.push('user-center/oybuy/seckill');
       },

@@ -12,6 +12,9 @@ const mutataions = {
   },
   [types.SET_SSUBJECT](state, subjectList) {
     state.subjectList = subjectList;
+  },
+  [types.SET_MNUM](state, messageNumber) {
+    state.messageNumber = messageNumber;
   }
 };
 export default mutataions;

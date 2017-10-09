@@ -54,6 +54,12 @@
       }, false);
     },
     methods: {
+      refresh() {
+        if (this.slider) {
+          this._setSliderWidth(true);
+          this.slider.refresh();
+        }
+      },
       _setSliderWidth(isResize) {
         this.children = this.$refs.sliderGroup.children;
         let width = 0;

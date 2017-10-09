@@ -12,6 +12,7 @@ import OyBuy from 'components/oybuy/oybuy';
 import Seckill from 'components/oybuy/seckill';
 import Purchased from 'components/oybuy/purchased';
 import SearchSubject from 'components/search-subject/search-subject';
+import Message from 'components/Message/Message';
 
 Vue.use(Router);
 
@@ -82,6 +83,10 @@ export default new Router({
           }
         ]
       }]
+    },
+    {
+      path: '/message',
+      component: Message
     }
   ]
 });

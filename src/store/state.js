@@ -2,7 +2,8 @@ const state = {
   subject: {},
   sort: {},
   goods: {},
-  subjectList: {}
+  subjectList: {},
+  messageNumber: {}
 };
 
 export default state;

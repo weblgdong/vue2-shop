@@ -80,7 +80,7 @@
         height: 45px
         background-repeat: no-repeat
         background-position: center
-        background-size: 26px 25px
+        background-size: 23.5px 19px
         bg-image('cart')
         .number
           position: absolute
