@@ -5,7 +5,7 @@
       <div class="cart">
         <div class="number" v-if="cartCount>0">{{cartCount}}</div>
       </div>
-      <div class="add-cart">加入购物车</div>
+      <div class="add-cart" @click="selectType">加入购物车</div>
       <div class="buy">立即购买</div>
     </div>
     <div class="btn-group" v-if="type=='10E'">
@@ -35,10 +35,15 @@
     data() {
       return {
         isIPhone: false,
-        appUrl: ''
+        appUrl: '',
+        thisTrue: false
       };
     },
-    methods: {}
+    methods: {
+      selectType() {
+        this.$emit('selType', this.thisTrue = !this.thisTrue);
+      }
+    }
   };
 </script>
 
@@ -46,11 +51,13 @@
   @import "../../common/stylus/mixin.styl"
   .shop-cart
     position: fixed
-    left: 3%
+    left: 50%
     bottom: 5px
     background: #fff
-    width: 94%
+    width: 96%
     height: 45px
+    z-index: 10
+    transform:translateX(-50%)
     border-top: 1px #b2b2b2 solid
     border-left: 1px #b2b2b2 solid
     border-radius 5px

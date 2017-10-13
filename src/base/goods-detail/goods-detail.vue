@@ -50,8 +50,9 @@
           </div>
           <recommend v-if="recommend" :recommend="recommend" style="padding-bottom:50px;background:#ededed"></recommend>
         </div>
-        <shop-cart :type="type" v-if="type" :cartCount="cartCount"></shop-cart>
+        <shop-cart :type="type" v-if="type" :cartCount="cartCount" @selType="showTypes"></shop-cart>
       </scroll>
+      <sel-goods :show="disSel" v-if="goodsList.id" :goods="goodsList"></sel-goods>
     </view-slot>
   </transition>
 </template>
@@ -65,6 +66,7 @@
   import Scroll from 'base/scroll/scroll';
   import Recommend from 'components/recommend/recommend';
   import shopCart from 'base/shopcart/shopcart';
+  import selGoods from 'components/goods-type/goods-type';
 
   export default {
     props: {
@@ -75,6 +77,7 @@
     },
     data() {
       return {
+        disSel: false,
         title: '',
         data: {},
         sliders: [],
@@ -102,6 +105,9 @@
       ])
     },
     methods: {
+      showTypes(a) {
+        this.disSel = a;
+      },
       loadImage(index) {
         if (index === this.infoList.length - 1) {
           this.$refs.goodsDetail.refresh();
@@ -157,7 +163,8 @@
       Scroll,
       viewSlot,
       Slider,
-      Recommend
+      Recommend,
+      selGoods
     }
   };
 </script>

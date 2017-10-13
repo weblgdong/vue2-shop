@@ -190,11 +190,11 @@
               position: relative
               flex: 1
               .name
-                padding: 2px 0 7px
+                padding: 2px 5px 0 7px
                 font-size: 13px
                 color: #252525
               .type
-                height: 53px
+                height: 43px
                 font-size: 13px
                 color: #7f7f7f
               .price
