@@ -6,8 +6,8 @@ export const REQUESTNAME = 'getGoodsDetail.app';
 export const SIGN = 'dbd42ab345506aee19ca0c424d84e08c';
 export const TIMESTAMP = '-61554089363000';
 // export const CTX = 'http://linxx.ngrok.cc/hls-proxy';
-// export const CTX = 'http://192.168.1.200:9138/hls-proxy';
-export const CTX = 'http://120.132.39.45:7787/hls-proxy';
+export const CTX = 'http://192.168.1.200:9138/hls-proxy';
+// export const CTX = 'http://120.132.39.45:7787/hls-proxy';
 
 export const commonParams = {
     versionNo: VERSIONNO,

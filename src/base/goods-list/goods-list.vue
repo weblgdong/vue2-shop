@@ -60,16 +60,17 @@
       .goods-desc
         position: relative
         flex: 1
+        padding: 0 5px
         .name
           margin: 16px 0 8px
           font-size: 13px
           color: #252525
           line-height: 18px
           max-height: 36px
-          overflow: hidden;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
+          overflow: hidden
+          text-overflow: ellipsis
+          display: -webkit-box
+          -webkit-line-clamp: 2
           -webkit-box-orient: vertical
           .icon
             &.purchased
@@ -87,9 +88,15 @@
         .description
           font-size: 13px
           color: #9c9c9c
+          height: 26px
+          overflow: hidden
+          text-overflow: ellipsis
+          display: -webkit-box
+          -webkit-line-clamp: 2
+          -webkit-box-orient: vertical
         .price
           .current-price
-            padding: 26px 0 8px
+            padding: 10px 0 8px
             font-size: 23px
             color: #f82f44
           .former-price

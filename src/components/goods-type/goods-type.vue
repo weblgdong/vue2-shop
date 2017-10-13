@@ -22,6 +22,9 @@
           </div>
           <div class="number">
             <div class="key">数量</div>
+            <div class="cartcontrol">
+              <div class="cart-decrease"></div><div class="cart-count">1</div><div class="cart-add"></div>
+            </div>
           </div>
         </div>
       </scroll>
@@ -136,19 +139,42 @@
         .value
           display: inline-block
           font-size: 12px
-          margin-left: 25px;
-          margin-bottom: 15px;
-          padding: 0 16px;
-          color: #333;
-          line-height: 26px;
-          border: 1px #b3b3b3 solid;
-          border-radius: 6px;
+          margin-left: 25px
+          margin-bottom: 15px
+          padding: 0 16px
+          color: #333
+          line-height: 26px
+          border: 1px #b3b3b3 solid
+          border-radius: 6px
     .number
       padding-bottom: 60px
       .key
-        padding-top: 12px;
-        font-size: 14px;
+        padding-top: 12px
+        font-size: 14px
         line-height: 28px
         font-weight: 600
         color: #333
+      .cartcontrol
+        padding:10px 30px 30px
+        .cart-count
+          display: inline-block
+          border: 1px #ccc solid
+          width: 60px
+          line-height: 28px
+          text-align: center
+          height: 28px
+        .cart-add
+        .cart-decrease
+          vertical-align: top
+          display: inline-block
+          font-size: 0
+          width: 28px
+          height: 28px
+          line-height: 28px
+          text-align: center
+          color: #808080
+          border: 1px #ebebeb solid
+          background: #f5f5f5 url(minus.png) no-repeat center
+        .cart-add
+          background-image: url(plus.png)
 </style>

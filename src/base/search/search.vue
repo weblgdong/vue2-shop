@@ -6,7 +6,7 @@
           <div class="search-icon">
             <i class="icon"></i>
           </div>
-          <input type="text" @keyup="getKey" :placeholder="searchMap[searchType]" class="search-input">
+          <input type="text" v-model="searchVal" :placeholder="searchMap[searchType]" class="search-input">
         </div>
       </div>
       <div class="cancel" @click="hideSearch">
@@ -29,7 +29,7 @@
       <div class="clear-record" v-if="keyList.length">一键清空历史记录</div>
       <div class="clear-record" v-if="keyList.length===0">暂无搜索记录</div>
     </div>
-    <ul class="record-list" v-if="searchData.length">
+    <ul class="record-list" v-show="toSearch" v-if="searchData.length">
       <li v-if="searchType==='10A'" class="border-1px name" v-for="item in searchData" @click="selSearchItem(item)">
         {{item.title}}
       </li>
@@ -44,6 +44,7 @@
   import {RETURN_CODE} from 'api/config';
   import {getGoodSearchKey, searchRecordList, getGoodOrSubjectByKey, getSubjectSearchKey} from 'api/search';
   import {mapMutations} from 'vuex';
+  import {debounce} from 'underscore';
 
   export default {
     props: {
@@ -62,7 +63,8 @@
         keyList: [],
         toSearch: false,
         searchData: [],
-        isSearch: true
+        isSearch: true,
+        searchVal: ''
       };
     },
     created() {
@@ -86,7 +88,6 @@
           this.$router.push({
             path: 'search-subject'
           });
-          console.log(item);
           this.setSubjectList(item);
         }
       },
@@ -115,25 +116,28 @@
           }
         });
       },
-      getKey(e) {
-        if (e.target.value.length > 0) {
-          this.toSearch = true;
-          if (e.target.value) {
-            getGoodOrSubjectByKey(e.target.value, this.searchType).then((res) => {
-              if (res.return_code === RETURN_CODE) {
-                this.searchData = res.resultList;
-              }
-            });
+      _getGoodOrSubjectByKey: debounce(function () {
+        getGoodOrSubjectByKey(this.searchVal, this.searchType).then((res) => {
+          if (res.return_code === RETURN_CODE) {
+            this.searchData = res.resultList;
           }
-        } else {
-          this.toSearch = false;
-        }
-      },
+        });
+      }, 300),
       ...mapMutations({
         setGoods: 'SET_GOODS',
         setSort: 'SET_SORT',
         setSubjectList: 'SET_SSUBJECT'
       })
+    },
+    watch: {
+      searchVal(newVal) {
+        if (newVal.length) {
+          this.toSearch = true;
+          this._getGoodOrSubjectByKey();
+        } else {
+          this.toSearch = false;
+        }
+      }
     }
   };
 </script>
